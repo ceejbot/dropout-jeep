@@ -1,0 +1,40 @@
+{
+  "name": "dropout-jeep",
+  "version": "0.0.1",
+  "description": "a conversation site for computing",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -R spec test/test*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ceejbot/dropout-jeep.git"
+  },
+  "keywords": [
+    "conversation",
+    "news",
+    "links"
+  ],
+  "author": "C J Silverio <ceejceej@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ceejbot/dropout-jeep/issues"
+  },
+  "homepage": "https://github.com/ceejbot/dropout-jeep",
+  "devDependencies": {
+    "must": "~0.10.0",
+    "mocha": "~1.16.2"
+  },
+  "dependencies": {
+    "levelup": "~0.18.2",
+    "level-sublevel": "~5.2.0",
+    "tokenthrottle-level": "~1.0.1",
+    "leveldown": "~0.10.2",
+    "restify": "~2.6.1",
+    "node-uuid": "~1.4.1"
+  }
+}
