@@ -27,7 +27,9 @@
   "homepage": "https://github.com/ceejbot/dropout-jeep",
   "devDependencies": {
     "must": "~0.10.0",
-    "mocha": "~1.16.2"
+    "mocha": "~1.16.2",
+    "browserify": "~3.18.0",
+    "less": "~1.6.0"
   },
   "dependencies": {
     "levelup": "~0.18.2",
