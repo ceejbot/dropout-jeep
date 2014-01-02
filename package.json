@@ -1,47 +1,51 @@
 {
-  "name": "dropout-jeep",
-  "version": "0.0.1",
-  "description": "a conversation site for computing",
-  "main": "index.js",
-  "directories": {
-    "doc": "doc",
-    "test": "test"
-  },
-  "scripts": {
-    "test": "mocha -R spec test/test*.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ceejbot/dropout-jeep.git"
-  },
-  "keywords": [
-    "conversation",
-    "news",
-    "links"
-  ],
-  "author": "C J Silverio <ceejceej@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ceejbot/dropout-jeep/issues"
-  },
-  "homepage": "https://github.com/ceejbot/dropout-jeep",
-  "devDependencies": {
-    "must": "~0.10.0",
-    "mocha": "~1.16.2",
-    "browserify": "~3.18.0",
-    "less": "~1.6.0"
-  },
-  "dependencies": {
-    "levelup": "~0.18.2",
-    "level-sublevel": "~5.2.0",
-    "tokenthrottle-level": "~1.0.1",
-    "leveldown": "~0.10.2",
-    "restify": "~2.6.1",
-    "node-uuid": "~1.4.1",
-    "express": "~3.4.7",
-    "jade": "~1.0.2",
-    "qs": "~0.6.6",
-    "xtend": "~2.1.2",
-    "readable-stream": "~1.1.9"
-  }
+	"name": "dropout-jeep",
+	"version": "0.0.1",
+	"description": "a conversation site for computing",
+	"keywords": [ "conversation", "news", "links" ],
+	"author": "C J Silverio <ceejceej@gmail.com>",
+	"license": "MIT",
+	"homepage": "https://github.com/ceejbot/dropout-jeep",
+	"repository": { "type": "git", "url": "git://github.com/ceejbot/dropout-jeep.git" },
+	"bugs": { "url": "https://github.com/ceejbot/dropout-jeep/issues" },
+	"main": "index.js",
+	"directories":
+	{
+		"build": "build",
+		"doc":   "doc",
+		"lib":   "lib",
+		"site":  "site",
+		"test":  "test"
+	},
+	"scripts":
+	{
+		"test": "mocha -R spec test/test*.js"
+	},
+	"devDependencies":
+	{
+		"browserify": "~3.18.0",
+		"less":       "~1.6.0",
+		"mocha":      "~1.16.2",
+		"must":       "~0.10.0"
+	},
+	"dependencies":
+	{
+		"connect-redis":       "~1.4.6",
+		"express":             "~3.4.7",
+		"jade":                "~1.0.2",
+		"level-sublevel":      "~5.2.0",
+		"leveldown":           "~0.10.2",
+		"levelup":             "~0.18.2",
+		"lodash":              "~2.4.1",
+		"moment":              "~2.5.0",
+		"node-uuid":           "~1.4.1",
+		"p-promise":           "~0.2.5",
+		"polyclay":            "~1.6.4",
+		"polyclay-levelup":    "0.0.6",
+		"qs":                  "~0.6.6",
+		"readable-stream":     "~1.1.9",
+		"restify":             "~2.6.1",
+		"tokenthrottle-level": "~1.0.1",
+		"xtend":               "~2.1.2"
+	}
 }
