@@ -30,6 +30,7 @@
 	},
 	"dependencies":
 	{
+		"connect-flash":       "~0.1.1",
 		"connect-redis":       "~1.4.6",
 		"express":             "~3.4.7",
 		"jade":                "~1.0.2",
@@ -40,6 +41,8 @@
 		"moment":              "~2.5.0",
 		"node-uuid":           "~1.4.1",
 		"p-promise":           "~0.2.5",
+		"passport":            "~0.1.17",
+		"passport-local":      "~0.1.6",
 		"polyclay":            "~1.6.4",
 		"polyclay-levelup":    "0.0.6",
 		"qs":                  "~0.6.6",

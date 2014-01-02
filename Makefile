@@ -53,6 +53,5 @@ $(JSDIR)/%.js : $(JSSRCDIR)/%.js
 
 libs: bootstrap
 
-bootstrap: $(BOOTPATH)/bower.json
-	@cd $(BOOTPATH) && npm install && grunt dist
+bootstrap: $(BOOTPATH)/dist/js/bootstrap.js
 	@cp $(BOOTPATH)/dist/js/* $(OUTPUT_DIR)/js

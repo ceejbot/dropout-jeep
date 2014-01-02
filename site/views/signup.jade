@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	.container
+		h2 Sign up
+		p You will need to pay for the first year of membership in advance.
+		p Link to terms of service here. Link to privacy policy here.
+		form.form-horizontal(method='POST', role='form')
+			input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
+			.form-group
+				label.col-sm-2.control-label(for='email') Email
+				.col-sm-8
+					input.form-control#email(name="email", type='email', placeholder='Email')
+					span.help-block For contacting you about your account.
+			.form-group
+				label.col-sm-2.control-label(for='handle') Handle
+				.col-sm-8
+					input.form-control#handle(name="handle", type='text', placeholder='Handle/username/shortname')
+					span.help-block How you will be known on the site.
+			.form-group
+				label.col-sm-2.control-label(for='pass1') Password
+				.col-sm-8
+					input.form-control#pass1(name="pass1", type='password', placeholder='Password')
+			.form-group
+				.col-sm-8.col-sm-offset-2
+					input.form-control#pass2(name="pass2", type='password', placeholder='Enter it again')
+			.form-group
+				.col-sm-8.col-sm-offset-2
+					button.btn.btn-primary(type="submit") Next

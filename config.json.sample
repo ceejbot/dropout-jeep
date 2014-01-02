@@ -1,0 +1,6 @@
+{
+	"cookie_secret":  "keyboard cat",
+	"session_secret": "plays them off",
+	"SESSION_TTL":    1209600000,
+	"db":             "/var/db"
+}
