@@ -45,6 +45,7 @@
 		"qs":                  "~0.6.6",
 		"readable-stream":     "~1.1.9",
 		"restify":             "~2.6.1",
+		"scrypt-hash":         "~1.1.6",
 		"tokenthrottle-level": "~1.0.1",
 		"xtend":               "~2.1.2"
 	}
