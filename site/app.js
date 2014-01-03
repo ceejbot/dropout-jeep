@@ -2,11 +2,14 @@ var
 	config         = require('../config'),
 	express        = require('express'),
 	flash          = require('connect-flash'),
-	routes         = require('./routes'),
 	http           = require('http'),
+	LevelupAdapter = require('polyclay-levelup'),
+	LocalStrategy  = require('passport-local').Strategy,
+	passport       = require('passport'),
 	path           = require('path'),
 	RedisStore     = require('connect-redis')(express),
-	LevelupAdapter = require('polyclay-levelup')
+	auth           = require('./routes/auth'),
+	routes         = require('./routes')
 	;
 
 //-----------------------------------------------------------------
@@ -25,6 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -36,8 +40,9 @@ app.use(express.session(
 	store: new RedisStore(),
 	cookie: { maxAge: config.SESSION_TTL }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.csrf());
 
 app.use(function(request, response, next)
@@ -47,6 +52,8 @@ app.use(function(request, response, next)
 	response.locals.flash.error = request.flash('error');
 	response.locals.flash.success = request.flash('success');
 	response.locals.flash.warning = request.flash('warning');
+
+	response.locals.user = request.user;
 
 	next();
 });
@@ -61,10 +68,37 @@ if ('development' == app.get('env'))
 }
 
 //-----------------------------------------------------------------
+// middleware
+
+function userLoggedIn(request, response, next)
+{
+	if (request.isAuthenticated()) { return next(); }
+	response.redirect('/signin');
+}
+
+//-----------------------------------------------------------------
+
+passport.use(new LocalStrategy(auth.validateLogin));
+passport.serializeUser(function(user, callback)
+{
+	callback(null, user.id);
+});
+
+passport.deserializeUser(function(id, callback)
+{
+	Human.find(id, callback);
+});
+
+//-----------------------------------------------------------------
 
 app.get('/', routes.index);
 app.get('/signup', routes.signup);
 app.post('/signup', routes.signupPost);
+app.get('/signin', auth.login);
+app.post('/signin',
+	passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }),
+	auth.loginPost);
+app.get('/signout', auth.logout);
 
 //-----------------------------------------------------------------
 

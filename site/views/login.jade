@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	.container
+		h2 Log in
+		form.form-horizontal(method='POST', role='form')
+			input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
+			.form-group.input-group.col-sm-5
+				span.input-group-addon: i.fa.fa-envelope.fa-fw
+				input.form-control(type="text", placeholder="Email or handle", name="username")
+			.form-group.input-group.col-sm-5
+				span.input-group-addon: i.fa.fa-lock.fa-fw
+				input.form-control(type="password", placeholder="password", name="password")
+			.form-group
+				.col-sm-5
+					button.btn.btn-primary.btn-block(type="submit") Next
