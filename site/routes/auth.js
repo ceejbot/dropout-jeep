@@ -33,7 +33,6 @@ exports.loginPost = function(request, response)
 	response.redirect('/');
 };
 
-
 exports.logout = function(request, response)
 {
 	request.logout();

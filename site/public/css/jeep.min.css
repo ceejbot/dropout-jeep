@@ -5954,3 +5954,6 @@ td.visible-print {
     display: none !important;
   }
 }
+body {
+  padding-bottom: 70px;
+}

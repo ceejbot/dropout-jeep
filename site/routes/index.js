@@ -5,7 +5,7 @@ var
 
 exports.index = function(request, response)
 {
-	response.render('index', { title: 'Dropout-Jeep' });
+	response.render('index', { title: 'latest' });
 };
 
 exports.signup = function(request, response)

@@ -1,5 +1,4 @@
 var
-	config         = require('../config'),
 	express        = require('express'),
 	flash          = require('connect-flash'),
 	http           = require('http'),
@@ -7,9 +6,14 @@ var
 	LocalStrategy  = require('passport-local').Strategy,
 	passport       = require('passport'),
 	path           = require('path'),
-	RedisStore     = require('connect-redis')(express),
-	auth           = require('./routes/auth'),
-	routes         = require('./routes')
+	RedisStore     = require('connect-redis')(express)
+	;
+
+var
+	auth   = require('./routes/auth'),
+	config = require('../config'),
+	posts  = require('./routes/posts'),
+	routes = require('./routes')
 	;
 
 //-----------------------------------------------------------------
@@ -70,7 +74,7 @@ if ('development' == app.get('env'))
 //-----------------------------------------------------------------
 // middleware
 
-function userLoggedIn(request, response, next)
+function loginRequired(request, response, next)
 {
 	if (request.isAuthenticated()) { return next(); }
 	response.redirect('/signin');
@@ -99,6 +103,8 @@ app.post('/signin',
 	passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }),
 	auth.loginPost);
 app.get('/signout', auth.logout);
+app.get('/post', loginRequired, posts.post);
+app.post('/post', loginRequired, posts.postPost); // I love this line of code.
 
 //-----------------------------------------------------------------
 

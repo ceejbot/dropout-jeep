@@ -2,7 +2,7 @@ extends layout
 
 block content
 	.container
-		h2 Log in
+		h2 Sign in
 		form.form-horizontal(method='POST', role='form')
 			input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
 			.form-group.input-group.col-sm-5
@@ -13,4 +13,4 @@ block content
 				input.form-control(type="password", placeholder="password", name="password")
 			.form-group
 				.col-sm-5
-					button.btn.btn-primary.btn-block(type="submit") Next
+					button.btn.btn-primary.btn-block(type="submit") Sign in

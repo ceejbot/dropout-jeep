@@ -1,39 +1,19 @@
 doctype html
 html
 	head
-		title= title
+		title dropout-jeep || #{title}
 		link(href='//fonts.googleapis.com/css?family=Jura:400,600', rel='stylesheet', type='text/css')
-		link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", rel="stylesheet")
+		link(href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', rel='stylesheet')
 		link(rel='stylesheet', href='/css/jeep.css')
-
+		block scripts
 	body
 		block navbar
-			nav.navbar.navbar-inverse(role='navigation')
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.navbar-brand(href="#") Dropout-Jeep
-				.collapse.navbar-collapse#navblock1
-					ul.nav.navbar-nav
-						li.active: a(href='#') Latest
-						li: a(href='/queue') Queue
-						- if (locals.user)
-							li: a(href='/post') 
-								i.fa.fa-pencil.fa-lg 
-								|  Post
-					ul.nav.navbar-nav.navbar-right
-						- if (locals.user)
-							li: a(href='/profile')= user.handle
-							li: a(href='/signout'): i.fa.fa-sign-out
-						- else
-							li: a(href="/signup") Sign up
-							li: a(href='/signin') Sign in
+			include partials/nav
 		block flash
 			include partials/flash
 		block content
+		block footer
+			include partials/footer
 		block trailers
-			script(src="http://code.jquery.com/jquery.js")
+			script(src='http://code.jquery.com/jquery.js')
 			script(src='/js/bootstrap.min.js')
