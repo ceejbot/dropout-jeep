@@ -16,6 +16,8 @@ var
 	routes = require('./routes')
 	;
 
+var app = express();
+
 //-----------------------------------------------------------------
 // Databases
 
@@ -24,14 +26,25 @@ var Human = require('../lib/human');
 Human.setStorage({ dbpath: path.join(config.db, Human.prototype.plural)}, LevelupAdapter);
 
 //-----------------------------------------------------------------
+// Logging
 
-var app = express();
+app.logger  = require('../lib/logging')(
+{
+	console: true
+});
+var logstream =
+{
+	write: function(message, encoding) { app.logger.info(message.substring(0, message.length - 1)); }
+};
+
+//-----------------------------------------------------------------
+
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
-app.use(express.logger('dev'));
+app.use(express.logger({stream: logstream, format: 'dev'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -115,5 +128,5 @@ app.get('/profile', routes.profile);
 
 http.createServer(app).listen(app.get('port'), function()
 {
-	console.log('Express server listening on port ' + app.get('port'));
+	app.logger.info('Express server listening on port ' + app.get('port'));
 });
