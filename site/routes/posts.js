@@ -3,7 +3,8 @@ exports.post = function(request, response)
 	var locals =
 	{
 		_csrf: request.csrfToken(),
-		title: 'New post'
+		title: 'New post',
+		page: 'post'
 	};
 
 	response.render('post', locals);

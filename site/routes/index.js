@@ -5,7 +5,7 @@ var
 
 exports.index = function(request, response)
 {
-	response.render('index', { title: 'latest' });
+	response.render('index', { title: 'latest', page: 'home' });
 };
 
 exports.signup = function(request, response)
@@ -13,7 +13,8 @@ exports.signup = function(request, response)
 	var locals =
 	{
 		_csrf: request.csrfToken(),
-		title: 'Sign up'
+		title: 'Sign up',
+		page: 'signup'
 	};
 
 	response.render('signup', locals);
@@ -38,6 +39,7 @@ exports.signupPost = function(request, response)
 		{
 			_csrf: request.csrfToken(),
 			title: 'Sign up',
+			page: 'signup'
 		};
 		response.render('signup', locals);
 	}
@@ -71,4 +73,19 @@ exports.signupPost = function(request, response)
 	{
 		serveSignupForm(err.message);
 	}).done();
+};
+
+exports.faves = function(request, response)
+{
+	response.render('faves', { title: 'Favorites', page: 'faves' });
+};
+
+exports.queue = function(request, response)
+{
+	response.render('queue', { title: 'Queue', page: 'queue' });
+};
+
+exports.profile = function(request, response)
+{
+	response.render('profile', { title: 'Profile', page: 'profile' });
 };

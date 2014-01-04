@@ -5,20 +5,20 @@ nav.navbar.navbar-inverse(role='navigation')
 			span.icon-bar
 			span.icon-bar
 			span.icon-bar
-		a.navbar-brand(href="#") dropout-jeep
+		a.navbar-brand(href="/") dropout-jeep
 	.collapse.navbar-collapse#navblock1
 		ul.nav.navbar-nav
-			li.active: a(href='#') Latest
-			li: a(href='/queue') Queue
+			li(class="#{page=='home' ? 'active' : ''}"): a(href='/') Latest
+			li(class="#{page=='queue' ? 'active' : ''}"): a(href='/queue') Queue
 			- if (locals.user)
-				li: a(href='/faves') Favorites
-				li: a(href='/post') 
+				li(class="#{page=='faves' ? 'active' : ''}"): a(href='/faves') Favorites
+				li(class="#{page=='post' ? 'active' : ''}"): a(href='/post') 
 					i.fa.fa-pencil.fa-lg 
 					|  Post
 		ul.nav.navbar-nav.navbar-right
 			- if (locals.user)
-				li: a(href='/profile')= user.handle
+				li(class="#{page=='profile' ? 'active' : ''}"): a(href='/profile')= user.handle
 				li: a(href='/signout'): i.fa.fa-sign-out
 			- else
-				li: a(href="/signup") Sign up
-				li: a(href='/signin'): i.fa.fa-sign-in
+				li(class="#{page=='signup' ? 'active' : ''}"): a(href="/signup") Sign up
+				li(class="#{page=='signin' ? 'active' : ''}"): a(href='/signin'): i.fa.fa-sign-in

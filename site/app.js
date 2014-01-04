@@ -106,6 +106,11 @@ app.get('/signout', auth.logout);
 app.get('/post', loginRequired, posts.post);
 app.post('/post', loginRequired, posts.postPost); // I love this line of code.
 
+
+app.get('/faves', routes.faves);
+app.get('/queue', routes.queue);
+app.get('/profile', routes.profile);
+
 //-----------------------------------------------------------------
 
 http.createServer(app).listen(app.get('port'), function()

@@ -21,7 +21,8 @@ exports.login = function(request, response)
 	var locals =
 	{
 		_csrf: request.csrfToken(),
-		title: 'Sign in'
+		title: 'Sign in',
+		page: 'signin'
 	};
 
 	response.render('login', locals);
