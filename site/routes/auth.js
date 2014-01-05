@@ -1,5 +1,5 @@
 var
-	Human         = require('../../lib/human'),
+	Human         = require('../../lib/models/human'),
 	passport      = require('passport')
 	;
 

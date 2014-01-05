@@ -2,31 +2,18 @@ extends layout
 
 block content
 	.container
-		h2 New post
-		.row
-			.col-md-6
-				form(method='POST', role='form')
-					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
-					.form-group
-						label.control-label Title
-						- if (locals.ititle)
-							input.form-control(type="text", placeholder="title", name="title", value='ititle')
-						- else
-							input.form-control(type="text", placeholder="title", name="title")
-					.form-group
-						label.control-label Tags
-						- if (locals.itags)
-							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags", value='itags')
-						- else
-							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags")
-					.form-group
-						label.control-label Your post
-						textarea.form-control(rows='20', name='content')
-							= icontent
-						span.help-block You can use Markdown or html.
-					.form-group
-						.pull-right
-							button.btn.btn-default(type='cancel') Cancel
-							button.btn.btn-primary(type="submit") Post
-			.col-md-6
-				p Preview here.
+		.page-header
+			h2= post.title
+			small posted by 
+				a(href='/profile/#{post.poster}')= post.poster
+				| 
+				= post.createdRel()
+				- if (locals.user && locals.user.handle == post.poster)
+					| &nbsp;
+					a(href='/post/' + post.id + '/edit'): i.fa.fa-edit
+		!= post.render()
+		- each tag in post.tags
+			a.btn.btn-default.btn-xs(href='/tags/' + tag)= tag
+			|  
+		hr
+		p Comments shall go here.

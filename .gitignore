@@ -14,5 +14,5 @@ results
 npm-debug.log
 node_modules
 bower_components
-config.json
+cfg/development.json
 db

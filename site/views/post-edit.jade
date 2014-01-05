@@ -1,0 +1,40 @@
+extends layout
+
+block append trailers
+	script(src='/js/rivets.min.js')
+	script(src='/js/marked.js')
+
+block content
+	.container
+		h2 New post
+		.row
+			.col-md-6
+				form(method='POST', role='form')
+					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
+					.form-group
+						label.control-label Title
+						- if (post.title)
+							input.form-control(type="text", placeholder="title", name="title", value='#{post.title}')
+						- else
+							input.form-control(type="text", placeholder="title", name="title")
+					.form-group
+						label.control-label Tags
+						- if (post.tags)
+							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags", value='#{post.tags}')
+						- else
+							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags")
+					.form-group
+						label.control-label Your post
+						textarea.form-control(rows='20', name='content')
+							= post.content
+						span.help-block You can use Markdown or html.
+					.form-group
+						.pull-right
+							button.btn.btn-default(type='cancel') Cancel
+							button.btn.btn-primary(type="submit") Post
+			.col-md-6
+				p Preview here.
+				#preview
+					h2 { post.title }
+					#content { post.content }
+					#tags { post.tags }

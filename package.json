@@ -1,17 +1,19 @@
 {
-	"name": "dropout-jeep",
-	"version": "0.0.1",
+	"name":        "dropout-jeep",
+	"version":     "0.0.1",
 	"description": "a conversation site for computing",
-	"keywords": [ "conversation", "news", "links" ],
-	"author": "C J Silverio <ceejceej@gmail.com>",
-	"license": "MIT",
-	"homepage": "https://github.com/ceejbot/dropout-jeep",
-	"repository": { "type": "git", "url": "git://github.com/ceejbot/dropout-jeep.git" },
-	"bugs": { "url": "https://github.com/ceejbot/dropout-jeep/issues" },
-	"main": "index.js",
+	"keywords":    [ "conversation", "news", "links" ],
+	"author":      "C J Silverio <ceejceej@gmail.com>",
+	"license":     "MIT",
+	"homepage":    "https://github.com/ceejbot/dropout-jeep",
+	"repository":  { "type": "git", "url": "git://github.com/ceejbot/dropout-jeep.git" },
+	"bugs":        { "url": "https://github.com/ceejbot/dropout-jeep/issues" },
+	"main":        "index.js",
 	"directories":
 	{
 		"build": "build",
+		"cfg":   "cfg",
+		"data":  "data",
 		"doc":   "doc",
 		"lib":   "lib",
 		"site":  "site",
@@ -19,7 +21,9 @@
 	},
 	"scripts":
 	{
-		"test": "mocha -R spec test/test*.js"
+		"test": "mocha -R spec test/test*.js",
+		"data": "cd data && npm run",
+		"site": "cd site && npm run"
 	},
 	"devDependencies":
 	{
@@ -39,6 +43,7 @@
 		"leveldown":           "~0.10.2",
 		"levelup":             "~0.18.2",
 		"lodash":              "~2.4.1",
+		"marked":              "~0.3.0",
 		"moment":              "~2.5.0",
 		"node-uuid":           "~1.4.1",
 		"p-promise":           "~0.2.5",
@@ -49,6 +54,7 @@
 		"qs":                  "~0.6.6",
 		"readable-stream":     "~1.1.9",
 		"restify":             "~2.6.1",
+		"sanitizer":           "~0.1.1",
 		"scrypt-hash":         "~1.1.6",
 		"tokenthrottle-level": "~1.0.1",
 		"xtend":               "~2.1.2"

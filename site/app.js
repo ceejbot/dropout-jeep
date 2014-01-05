@@ -1,4 +1,5 @@
 var
+	_              = require('lodash'),
 	express        = require('express'),
 	flash          = require('connect-flash'),
 	http           = require('http'),
@@ -10,32 +11,31 @@ var
 	;
 
 var
-	auth   = require('./routes/auth'),
-	config = require('../config'),
-	posts  = require('./routes/posts'),
+	config = require('../cfg'),
 	routes = require('./routes')
 	;
 
 var app = express();
 
 //-----------------------------------------------------------------
-// Databases
-
-var Human = require('../lib/human');
-
-Human.setStorage({ dbpath: path.join(config.db, Human.prototype.plural)}, LevelupAdapter);
-
-//-----------------------------------------------------------------
 // Logging
 
-app.logger  = require('../lib/logging')(
-{
-	console: true
-});
+app.logger  = require('../lib/logging')(config.logging);
 var logstream =
 {
 	write: function(message, encoding) { app.logger.info(message.substring(0, message.length - 1)); }
 };
+
+//-----------------------------------------------------------------
+// Databases
+// This seriously needs to move.
+
+var models = require('../lib/models');
+_.each(models, function(Model, k)
+{
+	Model.setStorage({ dbpath: path.join(config.db, Model.prototype.plural)}, LevelupAdapter);
+	app.logger.info(k + ' storage set in levelup');
+});
 
 //-----------------------------------------------------------------
 
@@ -77,7 +77,6 @@ app.use(function(request, response, next)
 
 app.use(app.router);
 
-// development only
 if ('development' == app.get('env'))
 {
 	app.use(express.errorHandler());
@@ -95,7 +94,7 @@ function loginRequired(request, response, next)
 
 //-----------------------------------------------------------------
 
-passport.use(new LocalStrategy(auth.validateLogin));
+passport.use(new LocalStrategy(routes.auth.validateLogin));
 passport.serializeUser(function(user, callback)
 {
 	callback(null, user.id);
@@ -103,26 +102,32 @@ passport.serializeUser(function(user, callback)
 
 passport.deserializeUser(function(id, callback)
 {
-	Human.find(id, callback);
+	models.Human.find(id, callback);
 });
 
 //-----------------------------------------------------------------
 
-app.get('/', routes.index);
-app.get('/signup', routes.signup);
-app.post('/signup', routes.signupPost);
-app.get('/signin', auth.login);
+app.get('/', routes.main.index);
+
+app.get('/signup', routes.registration.signup);
+app.post('/signup', routes.registration.signupPost);
+app.get('/signin', routes.auth.login);
 app.post('/signin',
 	passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }),
-	auth.loginPost);
-app.get('/signout', auth.logout);
-app.get('/post', loginRequired, posts.post);
-app.post('/post', loginRequired, posts.postPost); // I love this line of code.
+	routes.auth.loginPost);
+app.get('/signout', routes.auth.logout);
 
+app.get('/post/:id', routes.posts.post);
+app.get('/post', loginRequired, routes.posts.postCreate);
+app.post('/post', loginRequired, routes.posts.postPost); // I love this line of code.
+app.get('/post/:id/edit', loginRequired, routes.posts.postEdit);
+app.post('/post/:id/edit', loginRequired, routes.posts.postEditPost); // and this one
 
-app.get('/faves', routes.faves);
-app.get('/queue', routes.queue);
-app.get('/profile', routes.profile);
+app.get('/faves', routes.main.faves);
+app.get('/queue', routes.main.queue);
+app.get('/profile', routes.main.profile);
+app.get('/tags', routes.tags.all);
+app.get('/tags/:tag', routes.tags.tag);
 
 //-----------------------------------------------------------------
 
