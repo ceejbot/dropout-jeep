@@ -108,6 +108,7 @@ passport.deserializeUser(function(id, callback)
 //-----------------------------------------------------------------
 
 app.get('/', routes.main.index);
+app.get('/about', routes.main.about);
 
 app.get('/signup', routes.registration.signup);
 app.post('/signup', routes.registration.signupPost);
