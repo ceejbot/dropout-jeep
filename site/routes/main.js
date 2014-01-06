@@ -1,11 +1,22 @@
 var
-	_     = require('lodash'),
-	Human = require('../../lib/models/human')
+	_      = require('lodash'),
+	models = require('../../lib/models'),
+	Human  = models.Human,
+	Post   = models.Post
 	;
 
 exports.index = function(request, response)
 {
-	response.render('index', { title: 'latest', page: 'home' });
+	Post.fetchPage(0, 20)
+	.then(function(posts)
+	{
+		response.render('index', { title: 'latest', page: 'home', posts: posts });
+	})
+	.fail(function(err)
+	{
+		response.locals.flash.error.push(err.message);
+		response.render('index', { title: 'latest', page: 'home', posts: [] });
+	}).done();
 };
 
 exports.about = function(request, response)

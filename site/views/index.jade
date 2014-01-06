@@ -1,7 +1,22 @@
 extends layout
 
+mixin singlePost(post)
+	h4
+		a(href="/post/" + post.id)= post.title
+		|  
+		small= post.createdRel().toLowerCase()
+			| &nbsp;by 
+			a(href='/profile/#{post.poster}')= post.poster
+	!= post.excerpt()
+
+
 block content
 	.container
-		h1= title
-		p A date-sorted list of the latest posts will go here.
-		p: img(src='/img/icon_2648.svg', alt='dropout-jeep', height=100, width=100)
+		.row
+			.col-sm-9
+				- each post in posts
+					+singlePost(post)
+			.col-sm-3
+				p Mission statement here.
+				p Other actions here.
+

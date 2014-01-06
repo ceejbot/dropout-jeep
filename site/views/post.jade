@@ -35,7 +35,7 @@ block content
 					- if (locals.user && locals.user.handle == post.poster)
 						| &nbsp;
 						a(href='/post/' + post.id + '/edit'): i.fa.fa-edit
-		.lead!= post.render()
+		div!= post.render()
 		- each tag in post.tags
 			a.btn.btn-info.btn-xs(href='/tags/' + tag)= tag
 			|  

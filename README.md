@@ -8,11 +8,14 @@ Many thanks to [the NSA](http://www.zerohedge.com/news/2013-12-30/how-nsa-hacks-
 
 Short term:
 
-- input sanitization/xss cleaning
+- created/modified timestamps & related functions a mixin, to keep impl consistent/small
 - input validation
+- input sanitization/xss cleaning
 - trudge trudge features
 - asset pipeline for css / js 
 - browserify
+- pagination
+- caching
 
 Long-term:
 
@@ -20,7 +23,6 @@ Long-term:
 - tags design
 - API split-out
 - backbone / websockets / in-browser updates
-- caching
 - sane data storage
 - email validation [Mailgun](http://www.mailgun.com)
 - payment service - which?

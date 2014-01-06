@@ -57,10 +57,12 @@ exports.postPost = function(request, response)
 		poster: poster.handle,
 		title: request.body.title.trim(),
 		content: request.body.content.trim(),
-		tags: request.tags.split(',').map(function(i) { return i.trim(); })
+		tags: request.body.tags.split(',').map(function(i) { return i.trim(); })
 	};
 
-	// validate
+	// validate: data, strip xss
+	// make sure post has at least one link in it
+	// tag validation
 
 	function servePostEdit(msg)
 	{
