@@ -7,7 +7,7 @@ var
 
 exports.post = function(request, response)
 {
-	Post.get(request.params.id)
+	Post.fetchWithComments(request.params.id)
 	.then(function(post)
 	{
 		if (!post)
@@ -55,8 +55,8 @@ exports.postPost = function(request, response)
 	var details =
 	{
 		poster: poster.handle,
-		title: request.body.title,
-		content: request.body.content,
+		title: request.body.title.trim(),
+		content: request.body.content.trim(),
 		tags: request.tags.split(',').map(function(i) { return i.trim(); })
 	};
 

@@ -123,6 +123,9 @@ app.post('/post', loginRequired, routes.posts.postPost); // I love this line of 
 app.get('/post/:id/edit', loginRequired, routes.posts.postEdit);
 app.post('/post/:id/edit', loginRequired, routes.posts.postEditPost); // and this one
 
+
+app.post('/post/:pid/comment', loginRequired, routes.comments.commentPost);
+
 app.get('/faves', routes.main.faves);
 app.get('/queue', routes.main.queue);
 app.get('/profile', routes.main.profile);

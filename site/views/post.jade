@@ -1,19 +1,50 @@
 extends layout
 
+mixin renderComment(c)
+	hr
+	.row
+		.col-sm-9!= c.render()
+		.col-sm-3
+			small.pull-right= c.postTimeShort()
+				| &nbsp;
+				a(href='/profile/#{c.poster}')= c.poster
+
 block content
+	#postComment.modal.fade
+		.modal-dialog
+			.modal-content
+				form(method='POST', action='/post/' + post.id + '/comment')
+					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
+					input#_csrf(name='post', type='hidden', value="#{post.id}")
+					.modal-header
+						button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+						h4 Comment
+					.modal-body
+						textarea.form-control(rows='7', name='content')
+						span.help-block You can use Markdown or limited html.
+					.modal-footer
+						button.btn.btn-sm.btn-default(type='button', data-dismiss='modal') Cancel
+						button.btn.btn-sm.btn-primary(type='submit') Comment
 	.container
 		.page-header
-			h2= post.title
-			small posted by 
-				a(href='/profile/#{post.poster}')= post.poster
-				| 
-				= post.createdRel()
-				- if (locals.user && locals.user.handle == post.poster)
+			h3= post.title
+				|   
+				small= post.createdRel().toLowerCase() 
 					| &nbsp;
-					a(href='/post/' + post.id + '/edit'): i.fa.fa-edit
-		!= post.render()
+					a(href='/profile/#{post.poster}')= post.poster				
+					- if (locals.user && locals.user.handle == post.poster)
+						| &nbsp;
+						a(href='/post/' + post.id + '/edit'): i.fa.fa-edit
+		.lead!= post.render()
 		- each tag in post.tags
-			a.btn.btn-default.btn-xs(href='/tags/' + tag)= tag
+			a.btn.btn-info.btn-xs(href='/tags/' + tag)= tag
 			|  
+		- if (!post.comments.length)
+			hr
+			p No comments yet.
+		- else 
+			- each c in post.comments
+				+renderComment(c)
 		hr
-		p Comments shall go here.
+		- if (locals.user)
+			button.btn.btn-primary.btn-sm(data-toggle='modal', data-target='#postComment') Comment
