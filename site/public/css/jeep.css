@@ -337,7 +337,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Rosario', sans-serif;
+  font-family: 'RosarioBold', sans-serif;
   font-weight: 700;
   line-height: 1.1;
   color: inherit;
@@ -5957,6 +5957,10 @@ td.visible-print {
 @font-face {
   font-family: 'Rosario';
   src: url('/font/Rosario-Regular.ttf');
+}
+@font-face {
+  font-family: 'RosarioBold';
+  src: url('/font/Rosario-Bold.ttf');
 }
 body {
   padding-bottom: 70px;
