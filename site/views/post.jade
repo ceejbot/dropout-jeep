@@ -5,7 +5,7 @@ mixin renderComment(c)
 	.row
 		.col-sm-9!= c.render()
 		.col-sm-3
-			small.pull-right= c.postTimeShort()
+			small.pull-right= c.createdRel()
 				| &nbsp;
 				a(href='/profile/#{c.poster}')= c.poster
 

@@ -8,7 +8,6 @@ Many thanks to [the NSA](http://www.zerohedge.com/news/2013-12-30/how-nsa-hacks-
 
 Short term:
 
-- created/modified timestamps & related functions a mixin, to keep impl consistent/small
 - input validation
 - input sanitization/xss cleaning
 - trudge trudge features
