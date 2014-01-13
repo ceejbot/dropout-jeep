@@ -39,6 +39,8 @@
 		"connect-redis":       "~1.4.6",
 		"downsize":            "~0.0.4",
 		"express":             "~3.4.7",
+		"express-validator":   "~1.0.1",
+		"helmet":              "~0.1.2",
 		"jade":                "~1.0.2",
 		"level-sublevel":      "~5.2.0",
 		"leveldown":           "~0.10.2",

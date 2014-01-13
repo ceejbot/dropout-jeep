@@ -2,12 +2,14 @@ var
 	_              = require('lodash'),
 	express        = require('express'),
 	flash          = require('connect-flash'),
+	helmet         = require('helmet'), // TODO put to work
 	http           = require('http'),
 	LevelupAdapter = require('polyclay-levelup'),
 	LocalStrategy  = require('passport-local').Strategy,
 	passport       = require('passport'),
 	path           = require('path'),
-	RedisStore     = require('connect-redis')(express)
+	RedisStore     = require('connect-redis')(express),
+	validator      = require('express-validator')
 	;
 
 var
@@ -48,6 +50,7 @@ app.use(express.logger({stream: logstream, format: 'dev'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(validator());
 app.use(express.methodOverride());
 app.use(express.cookieParser(config.cookie_secret));
 app.use(express.session(

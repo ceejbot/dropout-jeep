@@ -1,8 +1,9 @@
 var
-	_      = require('lodash'),
-	models = require('../../lib/models'),
-	P      = require('p-promise'),
-	Post   = models.Post
+	_         = require('lodash'),
+	models    = require('../../lib/models'),
+	P         = require('p-promise'),
+	sanitizer = require('sanitizer'),
+	Post      = models.Post
 	;
 
 exports.post = function(request, response)
@@ -52,19 +53,23 @@ exports.postPost = function(request, response)
 	var poster = request.user,
 		post;
 
+	request.assert('title', 'You must include a title.').notEmpty();
+	request.assert('content', 'You must include a post body!').notEmpty();
+	request.assert('tags', 'You need to pick some tags.').notEmpty();
+
 	var details =
 	{
 		poster: poster.handle,
-		title: request.body.title.trim(),
-		content: request.body.content.trim(),
+		title: sanitizer.sanitize(request.body.title).trim(),
+		content: sanitizer.sanitize(request.body.content).trim(),
 		tags: request.body.tags.split(',').map(function(i) { return i.trim(); })
 	};
 
-	// validate: data, strip xss
+	// TODO
 	// make sure post has at least one link in it
 	// tag validation
 
-	function servePostEdit(msg)
+	function rerenderPage(msg)
 	{
 		if (!response.locals.flash.error)
 			response.locals.flash.error = [];
@@ -74,9 +79,22 @@ exports.postPost = function(request, response)
 			_csrf: request.csrfToken(),
 			title: 'New post',
 			page: 'post',
-			post: details
+			post:
+			{
+				title: details.title,
+				content: details.content,
+				tags: details.tags.join(', ')
+			}
 		};
 		response.render('post-edit', locals);
+	}
+
+	var errors = request.validationErrors();
+	if (errors)
+	{
+		var msgs = _.map(errors, function(e) { return e.msg; });
+		rerenderPage(msgs);
+		return;
 	}
 
 	Post.create(details)
@@ -88,7 +106,7 @@ exports.postPost = function(request, response)
 	})
 	.fail(function(err)
 	{
-		servePostEdit(err.message);
+		rerenderPage(err.message);
 	}).done();
 };
 
@@ -107,7 +125,7 @@ exports.postEdit = function(request, response)
 		if (post.poster !== request.user.handle)
 		{
 			request.app.logger.info(request.user.handle + ' attempted to edit post ' + post.id);
-			request.flash('warning', 'You cannot edit a post you did not make.')
+			request.flash('warning', 'You cannot edit a post you did not make.');
 			response.redirect('/');
 			return;
 		}
@@ -131,7 +149,7 @@ exports.postEdit = function(request, response)
 
 exports.postEditPost = function(request, response)
 {
-	var post
+	var post;
 
 	Post.get(request.params.id)
 	.then(function(reply)
@@ -148,17 +166,49 @@ exports.postEditPost = function(request, response)
 		if (post.poster !== request.user.handle)
 		{
 			request.app.logger.info(request.user.handle + ' attempted to edit post ' + post.id);
-			request.flash('warning', 'You cannot edit a post you did not make.')
+			request.flash('warning', 'You cannot edit a post you did not make.');
 			response.redirect('/');
 			return;
 		}
 
+		request.assert('title', 'You must include a title.').notEmpty();
+		request.assert('content', 'You must include a post body!').notEmpty();
+		request.assert('tags', 'You need to pick some tags.').notEmpty();
+
 		var details =
 		{
-			title: request.body.title,
-			content: request.body.content,
+			title: sanitizer.sanitize(request.body.title).trim(),
+			content: sanitizer.sanitize(request.body.content).trim(),
 			tags: request.body.tags.split(',').map(function(i) { return i.trim(); })
 		};
+
+		function rerenderPage(msg)
+		{
+			if (!response.locals.flash.error)
+				response.locals.flash.error = [];
+			response.locals.flash.error.push(msg);
+			var locals =
+			{
+				_csrf: request.csrfToken(),
+				title: post.title,
+				page: 'post',
+				post:
+				{
+					title: details.title,
+					content: details.content,
+					tags: details.tags.join(', ')
+				}
+			};
+			response.render('post-edit', locals);
+		}
+
+		var errors = request.validationErrors();
+		if (errors)
+		{
+			var msgs = _.map(errors, function(e) { return e.msg; });
+			rerenderPage(msgs);
+			return;
+		}
 
 		post.update(details);
 		post.save()
@@ -166,7 +216,11 @@ exports.postEditPost = function(request, response)
 		{
 			request.flash('success', 'Post updated.');
 			response.redirect('/post/' + post.id);
-		});
+		})
+		.fail(function(err)
+		{
+			rerenderPage(err.message);
+		}).done();
 	})
 	.fail(function(err)
 	{

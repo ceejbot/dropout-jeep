@@ -1,8 +1,9 @@
 var
-	_       = require('lodash'),
-	models  = require('../../lib/models'),
-	P       = require('p-promise'),
-	Comment = models.Comment
+	_         = require('lodash'),
+	models    = require('../../lib/models'),
+	P         = require('p-promise'),
+	sanitizer = require('sanitizer'),
+	Comment   = models.Comment
 	;
 
 exports.commentPost = function(request, response)
@@ -10,16 +11,25 @@ exports.commentPost = function(request, response)
 	var poster = request.user,
 		comment;
 
-	// check permissions of logged-in user
+	// TODO check permissions of logged-in user
+
+	request.assert('content', 'required').notEmpty();
 
 	var details =
 	{
 		poster:  poster.handle,
 		post:  request.params.pid,
-		content: request.body.content,
+		content: sanitizer.sanitize(request.body.content),
 	};
 
-	// validate
+	var errors = request.validationErrors();
+	if (errors)
+	{
+		// TODO preserve the comment in the destination page, probably in session storage
+		request.flash('error', errors.join(' '));
+		request.redirect('/post/' + request.params.pid);
+		return;
+	}
 
 	Comment.create(details)
 	.then(function(comment)
@@ -31,7 +41,7 @@ exports.commentPost = function(request, response)
 	.fail(function(err)
 	{
 		request.flash('warning', err.message);
-		response.redirect('/post/' + request.params.pid)
+		response.redirect('/post/' + request.params.pid);
 	}).done();
 };
 

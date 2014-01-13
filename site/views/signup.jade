@@ -10,13 +10,19 @@ block content
 			.form-group
 				label.col-sm-2.control-label(for='email') Email
 				.col-sm-8
-					input.form-control#email(name="email", type='email', placeholder='Email')
+					- if (email)
+						input.form-control#email(name="email", type='email', placeholder='Email', value='#{email}')
+					- else
+						input.form-control#email(name="email", type='email', placeholder='Email')
 					span.help-block For contacting you about your account.
 			.form-group
 				label.col-sm-2.control-label(for='handle') Handle
 				.col-sm-8
-					input.form-control#handle(name="handle", type='text', placeholder='Handle/username/shortname')
-					span.help-block How you will be known on the site.
+					- if (handle)
+						input.form-control#handle(name="handle", type='text', placeholder='Handle/username/shortname', value='#{handle}')
+					- else
+						input.form-control#handle(name="handle", type='text', placeholder='Handle/username/shortname')
+					span.help-block How you will be known on the site. Must be at least 2 characters long.
 			.form-group
 				label.col-sm-2.control-label(for='pass1') Password
 				.col-sm-8
@@ -26,4 +32,4 @@ block content
 					input.form-control#pass2(name="pass2", type='password', placeholder='Enter it again')
 			.form-group
 				.col-sm-8.col-sm-offset-2
-					button.btn.btn-primary(type="submit") Next
+					button.btn.btn-primary(type="submit") Sign up
