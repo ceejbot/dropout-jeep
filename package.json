@@ -42,7 +42,8 @@
     "gulp-less": "~1.1.10",
     "gulp-browserify": "~0.3.3",
     "gulp-watch": "~0.4.2",
-    "gulp-changed": "~0.1.0"
+    "gulp-changed": "~0.1.0",
+    "gulp-jscs": "~0.3.0"
   },
   "dependencies": {
     "bunyan": "~0.22.1",

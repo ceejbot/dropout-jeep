@@ -3,6 +3,7 @@ var
 	browserify = require('gulp-browserify'),
 	changed    = require('gulp-changed'),
 	gutil      = require('gulp-util'),
+	jscs       = require('gulp-jscs'),
 	less       = require('gulp-less'),
 	watch      = require('gulp-watch'),
 	path       = require('path')
@@ -46,4 +47,10 @@ gulp.task('watch-css', function()
 		paths: [ path.join(__dirname, 'bower_components', 'bootstrap', 'less') ]
 	}))
 	.pipe(gulp.dest('./site/public/css'));
+});
+
+gulp.task('lint', function()
+{
+	gulp.src(['*.js', './lib/**/*.js', '.test/*.js', './site/routes/*.js', './site/app.js'])
+	.pipe(jscs());
 });
