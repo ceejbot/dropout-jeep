@@ -1,4 +1,4 @@
-extends layout
+extends layout-nosidebar
 
 block append trailers
 	script(src='/js/rivets.min.js')
@@ -8,7 +8,7 @@ block content
 	.container
 		h2 New post
 		.row
-			.col-md-6
+			.col-md-7
 				form(method='POST', role='form')
 					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
 					.form-group
@@ -32,7 +32,7 @@ block content
 						.pull-right
 							button.btn.btn-default(type='cancel') Cancel
 							button.btn.btn-primary(type="submit") Post
-			.col-md-6
+			.col-md-5
 				p Preview here.
 				#preview
 					h2 { post.title }

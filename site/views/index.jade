@@ -11,12 +11,5 @@ mixin singlePost(post)
 
 
 block content
-	.container
-		.row
-			.col-sm-9
-				- each post in posts
-					+singlePost(post)
-			.col-sm-3
-				p Mission statement here.
-				p Other actions here.
-
+	- each post in posts
+		+singlePost(post)

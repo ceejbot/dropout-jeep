@@ -2,12 +2,11 @@ extends layout
 
 mixin renderComment(c)
 	hr
-	.row
-		.col-sm-9!= c.render()
-		.col-sm-3
-			small.pull-right= c.createdRel()
-				| &nbsp;
-				a(href='/profile/@#{c.poster}')= c.poster
+	small= c.createdRel()
+		| &nbsp;
+		a(href='/profile/@#{c.poster}')= c.poster
+	br
+	!= c.render()
 
 block content
 	#postComment.modal.fade

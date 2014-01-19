@@ -8,7 +8,6 @@ Many thanks to [the NSA](http://www.zerohedge.com/news/2013-12-30/how-nsa-hacks-
 
 Short term:
 
-- Gravatar user pics
 - trudge trudge features
 - asset pipeline for css / js 
 - browserify
