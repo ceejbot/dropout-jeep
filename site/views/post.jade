@@ -7,7 +7,7 @@ mixin renderComment(c)
 		.col-sm-3
 			small.pull-right= c.createdRel()
 				| &nbsp;
-				a(href='/profile/#{c.poster}')= c.poster
+				a(href='/profile/@#{c.poster}')= c.poster
 
 block content
 	#postComment.modal.fade
@@ -31,7 +31,7 @@ block content
 				|   
 				small= post.createdRel().toLowerCase() 
 					| &nbsp;
-					a(href='/profile/#{post.poster}')= post.poster				
+					a(href='/profile/@#{post.poster}')= post.poster				
 					- if (locals.user && locals.user.handle == post.poster)
 						| &nbsp;
 						a(href='/post/' + post.id + '/edit'): i.fa.fa-edit

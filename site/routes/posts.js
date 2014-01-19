@@ -211,6 +211,8 @@ exports.postEditPost = function(request, response)
 		}
 
 		post.update(details);
+		post.touch();
+
 		post.save()
 		.then(function()
 		{

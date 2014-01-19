@@ -18,7 +18,8 @@ nav.navbar.navbar-inverse(role='navigation')
 					|  Post
 		ul.nav.navbar-nav.navbar-right
 			- if (locals.user)
-				li(class="#{page=='profile' ? 'active' : ''}"): a(href='/profile')= user.handle
+				li(class="#{page=='profile' ? 'active' : ''}"): a(href='/profile/@#{user.handle}')= user.handle
+				li: a(href='/profile/edit'): i.fa.fa-gear
 				li: a(href='/signout'): i.fa.fa-sign-out
 			- else
 				li(class="#{page=='signup' ? 'active' : ''}"): a(href="/signup") Sign up

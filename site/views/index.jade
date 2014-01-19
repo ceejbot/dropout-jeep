@@ -6,7 +6,7 @@ mixin singlePost(post)
 		|  
 		small= post.createdRel().toLowerCase()
 			| &nbsp;by 
-			a(href='/profile/#{post.poster}')= post.poster
+			a(href='/profile/@#{post.poster}')= post.poster
 	!= post.excerpt()
 
 

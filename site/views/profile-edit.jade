@@ -2,5 +2,24 @@ extends layout
 
 block content
 	.container
-		p Unimplemented.
-			img.img-rounded(src="#{person.gravatarURL}")
+		.row
+			.col-sm-3
+				a(href="http://en.gravatar.com/emails/")
+					img.img-rounded(src="#{person.gravatarURL(200)}", style="height: 200px; width: 200px;")
+				p Your user pic is managed by 
+					a(href="http://gravatar.com") Gravatar.
+			.col-sm-9
+				h3= person.handle 
+					| &nbsp;
+					small= person.email
+				form(method='POST', role='form')
+					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
+					.form-group
+						label.control-label Profile
+						textarea.form-control(rows='10', name='profile')= person.profile
+						span.help-block You can use Markdown or limited html.
+					.form-group
+						.pull-right
+							button.btn.btn-default(type='cancel') Cancel
+							button.btn.btn-primary(type="submit") Update
+		p To be implemented: updating your email address. Connecting to Github.

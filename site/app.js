@@ -133,9 +133,9 @@ app.post('/post/:pid/comment', loginRequired, routes.comments.commentPost);
 app.get('/faves', routes.main.faves);
 app.get('/queue', routes.main.queue);
 
-app.get('/profile/:id', routes.people.profile);
 app.get('/profile/edit', loginRequired, routes.people.editProfile);
 app.post('/profile/edit', loginRequired, routes.people.postEditProfile);
+app.get('/profile/@:id', routes.people.profile);
 
 app.get('/tags', routes.tags.all);
 app.get('/tags/:tag', routes.tags.tag);

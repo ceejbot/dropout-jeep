@@ -43,13 +43,31 @@ exports.editProfile = function(request, response)
 	{
 		title: 'profile',
 		page: 'edit your profile',
-		person: request.user
+		person: request.user,
+		_csrf: request.csrfToken(),
 	};
 
-	response.render('profile', { title: 'profile', page: 'profile-edit' });
+	response.render('profile-edit', locals);
 };
 
 exports.postEditProfile = function(request, response)
 {
+	var person = request.user;
 
+	var profile = sanitizer.sanitize(request.body.profile);
+	person.profile = profile;
+	person.touch();
+
+	person.save()
+	.then(function(result)
+	{
+		request.app.logger.info('profile updated; handle=' + person.handle);
+		request.flash('success', 'Profile updated.');
+		response.redirect('/profile/@' + person.handle);
+	})
+	.fail(function(err)
+	{
+		request.flash('warning', err.message);
+		response.redirect('/profile/@' + person.handle);
+	}).done();
 };
