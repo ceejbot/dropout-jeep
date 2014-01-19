@@ -15,5 +15,57 @@
 	"disallowSpacesInFunctionExpression":
 	{
 	    "beforeOpeningRoundBrace": true
-	}
+	},
+	"disallowQuotedKeysInObjects": "allButReserved",
+	"requireOperatorBeforeLineBreak":
+	[
+	    "?",
+	    "+",
+	    "-",
+	    "/",
+	    "*",
+	    "=",
+	    "==",
+	    "===",
+	    "!=",
+	    "!==",
+	    ">",
+	    ">=",
+	    "<",
+	    "<="
+	],
+	"disallowSpaceAfterPrefixUnaryOperators":   ["++", "--", "+", "-", "~", "!"],
+	"disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+	"requireSpaceBeforeBinaryOperators":
+	[
+	    "+",
+	    "-",
+	    "/",
+	    "*",
+	    "=",
+	    "==",
+	    "===",
+	    "!=",
+	    "!=="
+	],
+	"requireSpaceAfterBinaryOperators":
+	[
+	    "+",
+	    "-",
+	    "/",
+	    "*",
+	    "=",
+	    "==",
+	    "===",
+	    "!=",
+	    "!=="
+	],
+	"validateLineBreaks":         "LF",
+	"validateIndentation":        "\t",
+	"disallowMixedSpacesAndTabs": "smart",
+	"disallowTrailingWhitespace": true,
+	"requireKeywordsOnNewLine":   ["else"],
+	"requireLineFeedAtFileEnd":   true,
+	"safeContextKeyword":         "self",
+	"requireDotNotation":         true
 }
