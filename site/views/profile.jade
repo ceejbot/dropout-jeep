@@ -2,4 +2,15 @@ extends layout
 
 block content
 	.container
-		p Unimplemented.
+		.row
+			.col-sm-3
+				img.img-rounded(src="#{person.gravatarURL(256)}", style="height: 256px; width: 256px;")
+			.col-sm-9
+				h3= person.handle 
+					| &nbsp;
+					small= person.email
+				!= person.rendered()
+				h4 Posts
+				p Unimplemented.
+				h4 Favorites
+				p Unimplemented.

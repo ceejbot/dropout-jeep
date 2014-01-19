@@ -65,6 +65,7 @@
     "sanitizer": "~0.1.1",
     "scrypt-hash": "~1.1.6",
     "tokenthrottle-level": "~1.0.1",
-    "xtend": "~2.1.2"
+    "xtend": "~2.1.2",
+    "primus": "~1.5.2"
   }
 }

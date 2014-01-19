@@ -34,7 +34,3 @@ exports.queue = function(request, response)
 	response.render('queue', { title: 'queue', page: 'queue' });
 };
 
-exports.profile = function(request, response)
-{
-	response.render('profile', { title: 'profile', page: 'profile' });
-};

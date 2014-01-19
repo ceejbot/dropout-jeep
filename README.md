@@ -8,8 +8,7 @@ Many thanks to [the NSA](http://www.zerohedge.com/news/2013-12-30/how-nsa-hacks-
 
 Short term:
 
-- input validation
-- input sanitization/xss cleaning
+- Gravatar user pics
 - trudge trudge features
 - asset pipeline for css / js 
 - browserify
@@ -18,6 +17,8 @@ Short term:
 
 Long-term:
 
+- code display: syntax highlighting etc
+- embedding gists
 - moderation implementation / admin role, display
 - tags design
 - API split-out
@@ -29,6 +30,7 @@ Long-term:
 - two-factor auth with authy or sms or something
 - contract a graphic designer
 - backups (Tarsnap?)
+- notifications of some kind
 
 ## License 
 
