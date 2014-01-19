@@ -19,7 +19,7 @@ LESSDIR := $(INPUT_DIR)/less
 CSSDIR := $(OUTPUT_DIR)/css
 
 LESSFILES := $(wildcard $(LESSDIR)/*.less)
-LESSDEPS := $(LESSFILES) $(wildcard $(LESSDIR)/*/*.less)
+LESSDEPS := $(LESSFILES) $(wildcard $(LESSDIR)/**/*.less)
 CSS := $(patsubst $(LESSDIR)%, $(CSSDIR)%, $(patsubst %.less,%.css,$(LESSFILES)))
 MINCSS = $(CSS:.css=.min.css)
 

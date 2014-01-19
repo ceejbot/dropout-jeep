@@ -36,7 +36,13 @@
     "browserify": "~3.18.0",
     "less": "~1.6.0",
     "mocha": "~1.16.2",
-    "must": "~0.10.0"
+    "must": "~0.10.0",
+    "gulp": "~3.4.0",
+    "gulp-util": "~2.2.12",
+    "gulp-less": "~1.1.10",
+    "gulp-browserify": "~0.3.3",
+    "gulp-watch": "~0.4.2",
+    "gulp-changed": "~0.1.0"
   },
   "dependencies": {
     "bunyan": "~0.22.1",
