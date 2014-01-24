@@ -72,6 +72,7 @@
     "restify": "~2.6.1",
     "sanitizer": "~0.1.1",
     "scrypt-hash": "~1.1.6",
+    "supermarked": "git://github.com/ceejbot/supermarked.git",
     "tokenthrottle-level": "~1.0.1",
     "xtend": "~2.1.2"
   }

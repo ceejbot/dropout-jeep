@@ -5965,3 +5965,6 @@ td.visible-print {
 body {
   padding-bottom: 70px;
 }
+pre {
+  font-size: 14px;
+}
