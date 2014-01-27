@@ -35,17 +35,20 @@
   "devDependencies": {
     "browserify": "~3.24.1",
     "gulp": "~3.5.0",
+    "gulp-bower-files": "~0.1.2",
     "gulp-browserify": "~0.3.4",
     "gulp-changed": "~0.1.0",
     "gulp-concat": "~2.1.7",
+    "gulp-filter": "~0.2.1",
     "gulp-jscs": "~0.3.0",
     "gulp-less": "~1.2.0",
-    "gulp-util": "~2.2.12",
+    "gulp-rename": "~0.2.2",
+    "gulp-util": "~2.2.13",
     "gulp-watch": "~0.5.0",
     "less": "~1.6.1",
     "mocha": "~1.17.1",
     "must": "~0.10.0",
-    "gulp-bower-files": "~0.1.2"
+    "gulp-uglify": "~0.2.0"
   },
   "dependencies": {
     "bunyan": "~0.22.1",

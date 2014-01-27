@@ -42,10 +42,10 @@ $(CSSDIR)/%.min.css : $(LESSDIR)/%.less
 	@$(LESS) $(LESSOPTS) --yui-compress $< > $@
 
 js: $(JS_TARGETS)
-	@echo Just copying js files for now...
 
 $(JSDIR)/%.js : $(JSSRCDIR)/%.js
-	@cp $< $@
+	@echo Browserifying $<
+	@browserify $< -o $@
 
 %.min.js: %.js
 	@echo Minifying $<

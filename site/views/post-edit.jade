@@ -1,15 +1,21 @@
 extends layout-nosidebar
 
 block append trailers
-	script(src='/js/rivets.min.js')
-	script(src='/js/marked.js')
+	script(src='/js/app.js')
+	script(src='/js/libraries.js')
+	script.
+		rivets.bind($('#postForm'),
+		{
+			post: postModel,
+			controller: controllerObject
+		})
 
 block content
 	.container
 		h2 New post
 		.row
 			.col-md-7
-				form(method='POST', role='form')
+				form#postForm(method='POST', role='form')
 					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
 					.form-group
 						label.control-label Title
