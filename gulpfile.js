@@ -2,6 +2,7 @@ var
 	gulp       = require('gulp'),
 	browserify = require('gulp-browserify'),
 	changed    = require('gulp-changed'),
+	concat     = require('gulp-concat'),
 	gutil      = require('gulp-util'),
 	jscs       = require('gulp-jscs'),
 	less       = require('gulp-less'),
