@@ -1,5 +1,8 @@
 extends layout
 
+block append trailers
+	script(src='/js/app.js')
+
 mixin singlePost(post)
 	h4
 		a(href="/post/" + post.id)= post.title
@@ -9,7 +12,15 @@ mixin singlePost(post)
 			a(href='/profile/@#{post.poster}')= post.poster
 	!= post.excerpt()
 
+mixin emitDate(date)
+	- var d = moment(date)
+	.page-header
+		a(href='/day/' + d.format('YYYY-MM-DD'))= d.format('dddd, D MMMM YYYY')
 
 block content
+	- var day = null
 	- each post in posts
+		- if (!day || !isSameDay(post.created, day))
+			- day = post.created
+			+emitDate(day)
 		+singlePost(post)

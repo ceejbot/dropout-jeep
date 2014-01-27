@@ -96,6 +96,12 @@ function loginRequired(request, response, next)
 }
 
 //-----------------------------------------------------------------
+// jade helpers
+
+var helpers = require('../lib/helpers');
+helpers(app);
+
+//-----------------------------------------------------------------
 
 passport.use(new LocalStrategy(routes.auth.validateLogin));
 passport.serializeUser(function(user, callback)
@@ -111,6 +117,7 @@ passport.deserializeUser(function(id, callback)
 //-----------------------------------------------------------------
 
 app.get('/', routes.main.index);
+app.get(/\/day\/(.*)/, routes.day.listing);
 app.get('/about', routes.main.about);
 
 app.get('/signup', routes.registration.signup);
@@ -127,10 +134,10 @@ app.post('/post', loginRequired, routes.posts.postPost); // I love this line of 
 app.get('/post/:id/edit', loginRequired, routes.posts.postEdit);
 app.post('/post/:id/edit', loginRequired, routes.posts.postEditPost); // and this one
 
-
 app.post('/post/:pid/comment', loginRequired, routes.comments.commentPost);
 
 app.get('/faves', routes.main.faves);
+// app.put('/fave/:id', loginRequired, routes.favorites.put);
 app.get('/queue', routes.main.queue);
 
 app.get('/profile/edit', loginRequired, routes.people.editProfile);

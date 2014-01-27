@@ -37,7 +37,9 @@ gulp.task('libs', function()
 
 gulp.task('js', function()
 {
-	// browserify it up
+	gulp.src('./build/js/app.js')
+	.pipe(browserify())
+	.pipe(gulp.dest('./site/public/js'));
 });
 
 gulp.task('watch-css', function()

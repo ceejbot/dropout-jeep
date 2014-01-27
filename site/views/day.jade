@@ -1,0 +1,18 @@
+extends layout
+
+mixin singlePost(post)
+	hr
+	h4
+		a(href="/post/" + post.id)= post.title
+		|  
+		small &nbsp;by 
+			a(href='/profile/@#{post.poster}')= post.poster
+			|  @ 
+			= post.createdTime()
+	!= post.excerpt()
+
+block content
+	.page-header
+		h3= day
+	- each post in posts
+		+singlePost(post)
