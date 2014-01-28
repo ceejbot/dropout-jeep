@@ -57,7 +57,17 @@ gulp.task('js', function()
 {
 	gulp.src('./build/js/app.js')
 	.pipe(changed('./site/public/js'))
-	.pipe(browserify())
+	.pipe(browserify(
+	{
+		shim:
+		{
+			jquery:
+			{
+				path: './bower_components/jquery/jquery.min.js',
+				exports: '$'
+			}
+		}
+	}))
 	.pipe(gulp.dest('./site/public/js'));
 });
 

@@ -18,11 +18,12 @@
   ],
   "dependencies": {
     "bootstrap": "~3.0.3",
-    "rivets": "~0.6.6"
+    "rivets": "~0.6.6",
+    "jquery": "~2.1.0"
   },
   "overrides": {
-      "rivets": {
-          "main": "dist/rivets.js"
-      }
+    "rivets": {
+      "main": "dist/rivets.js"
+    }
   }
 }

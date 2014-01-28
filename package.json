@@ -32,6 +32,12 @@
     "data": "cd data && npm run",
     "site": "cd site && npm run"
   },
+  "browserify": {
+    "transform": [ "browserify-shim" ]
+  },
+  "browserify-shim": {
+    "./bower_components/jquery/jquery.js": "$"
+  },
   "devDependencies": {
     "browserify": "~3.24.1",
     "gulp": "~3.5.0",
@@ -48,7 +54,8 @@
     "less": "~1.6.1",
     "mocha": "~1.17.1",
     "must": "~0.10.0",
-    "gulp-uglify": "~0.2.0"
+    "gulp-uglify": "~0.2.0",
+    "browserify-shim": "~3.2.2"
   },
   "dependencies": {
     "bunyan": "~0.22.1",
@@ -79,6 +86,7 @@
     "scrypt-hash": "~1.1.8",
     "supermarked": "git://github.com/ceejbot/supermarked.git",
     "tokenthrottle-level": "~1.0.1",
-    "xtend": "~2.1.2"
+    "xtend": "~2.1.2",
+    "backbone": "~1.1.0"
   }
 }

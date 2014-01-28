@@ -45,13 +45,14 @@ js: $(JS_TARGETS)
 
 $(JSDIR)/%.js : $(JSSRCDIR)/%.js
 	@echo Browserifying $<
-	@browserify $< -o $@
+	@browserify -r ./$< -o $@
 
 %.min.js: %.js
 	@echo Minifying $<
 	@$(UGLIFY) --no-mangle -nc $< > $@
 
 libs: bootstrap
+	browserify -r supermarked -r moment -r backbone -o $(JSDIR)/bundle.js
 
 bootstrap: $(BOOTPATH)/dist/js/bootstrap.js
 	@cp $(BOOTPATH)/dist/js/* $(OUTPUT_DIR)/js

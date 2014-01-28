@@ -1,14 +1,30 @@
 extends layout-nosidebar
 
 block append trailers
+	script(src='/js/bundle.js')
+	script(src='/js/rivets.min.js')
+	- var json = JSON.stringify(post)
 	script(src='/js/app.js')
-	script(src='/js/libraries.js')
 	script.
-		rivets.bind($('#postForm'),
+		var postjson = !{json};
+		var app = require('./build/js/app.js');
+		var Backbone = require('backbone');
+		Backbone.$ = window.$;
+		$(function()
 		{
-			post: postModel,
-			controller: controllerObject
-		})
+			var post = new app.PostModel();
+			post.set(postjson);
+			console.log(post);
+
+			var controller = new app.Postmonger();
+			Backbone.history.start({pushState: true});
+
+			rivets.bind($('#preview'),
+			{
+				post: post,
+				controller: controller
+			});
+		});
 
 block content
 	.container
@@ -40,6 +56,6 @@ block content
 							button.btn.btn-primary(type="submit") Post
 			.col-md-5
 				#preview
-					h3 { post.title }
-					#content { post.content }
+					h3 { post.attributes.title }
+					#content { post.attributes.content }
 					#tags { post.tags }
