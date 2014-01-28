@@ -7,23 +7,36 @@ block append trailers
 	script(src='/js/app.js')
 	script.
 		var postjson = !{json};
-		var app = require('./build/js/app.js');
-		var Backbone = require('backbone');
+		var 
+			app = require('./build/js/app.js')
+			Backbone = require('backbone'),
+			marked = require('supermarked')
+			;
+
 		Backbone.$ = window.$;
 		$(function()
 		{
 			var post = new app.PostModel();
 			post.set(postjson);
-			console.log(post);
 
 			var controller = new app.Postmonger();
 			Backbone.history.start({pushState: true});
 
-			rivets.bind($('#preview'),
+			rivets.adapters[':'] =
 			{
-				post: post,
-				controller: controller
-			});
+				subscribe: function(obj, keypath, callback) { obj.on('change:' + keypath, callback); },
+				unsubscribe: function(obj, keypath, callback) { obj.off('change:' + keypath, callback); },
+				read: function(obj, keypath) { return obj.get(keypath); },
+				publish: function(obj, keypath, value) { obj.set(keypath, value); }
+			}
+
+			rivets.formatters.render = function(text)
+			{
+				return marked(text);
+			}
+
+			rivets.bind($('#preview'), { post: post });
+			rivets.bind($('#postForm'), { post: post });
 		});
 
 block content
@@ -35,20 +48,13 @@ block content
 					input#_csrf(name="_csrf", type='hidden', value="#{_csrf}")
 					.form-group
 						label.control-label Title
-						- if (post.title)
-							input.form-control(type="text", placeholder="title", name="title", value='#{post.title}')
-						- else
-							input.form-control(type="text", placeholder="title", name="title")
+						input.form-control(type="text", placeholder="title", name="title", rv-value="post:title")
 					.form-group
 						label.control-label Tags
-						- if (post.tags)
-							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags", value='#{post.tags}')
-						- else
-							input.form-control(type="text", placeholder="comma-separated list of tags", name="tags")
+						input.form-control(type="text", placeholder="comma-separated list of tags", name="tags", rv-value="post:tags")
 					.form-group
 						label.control-label Your post
-						textarea.form-control(rows='20', name='content')
-							= post.content
+						textarea.form-control(rows='20', name='content', rv-value="post:content")
 						span.help-block You can use Markdown or limited html.
 					.form-group
 						.pull-right
@@ -56,6 +62,6 @@ block content
 							button.btn.btn-primary(type="submit") Post
 			.col-md-5
 				#preview
-					h3 { post.attributes.title }
-					#content { post.attributes.content }
-					#tags { post.tags }
+					h3 { post:title }
+					#content(rv-html="post:content | render")
+					#tags { post:tags }
