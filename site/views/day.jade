@@ -1,7 +1,6 @@
 extends layout
 
 mixin singlePost(post)
-	hr
 	h4
 		a(href="/post/" + post.id)= post.title
 		|  
@@ -10,6 +9,7 @@ mixin singlePost(post)
 			|  @ 
 			= post.createdTime()
 	!= post.excerpt()
+	hr
 
 block content
 	.page-header
