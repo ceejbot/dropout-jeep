@@ -1,15 +1,16 @@
 var
-	_              = require('lodash'),
-	express        = require('express'),
-	flash          = require('connect-flash'),
-	helmet         = require('helmet'), // TODO put to work
-	http           = require('http'),
-	LevelupAdapter = require('polyclay-levelup'),
-	LocalStrategy  = require('passport-local').Strategy,
-	passport       = require('passport'),
-	path           = require('path'),
-	RedisStore     = require('connect-redis')(express),
-	validator      = require('express-validator')
+	_             = require('lodash'),
+	Controller    = require('../lib/controller'),
+	express       = require('express'),
+	flash         = require('connect-flash'),
+	helmet        = require('helmet'), // TODO put to work
+	http          = require('http'),
+	models        = require('../lib/models'),
+	LocalStrategy = require('passport-local').Strategy,
+	passport      = require('passport'),
+	path          = require('path'),
+	RedisStore    = require('connect-redis')(express),
+	validator     = require('express-validator')
 	;
 
 var
@@ -18,29 +19,19 @@ var
 	;
 
 var app = express();
+var controller = new Controller(config);
+app.set('controller', controller);
 
 //-----------------------------------------------------------------
 // Logging
 
-app.logger  = require('../lib/logging')(config.logging);
+app.logger  = controller.logger;
 var logstream =
 {
 	write: function(message, encoding) { app.logger.info(message.substring(0, message.length - 1)); }
 };
 
 //-----------------------------------------------------------------
-// Databases
-// This seriously needs to move.
-
-var models = require('../lib/models');
-_.each(models, function(Model, k)
-{
-	Model.setStorage({ dbpath: path.join(config.db, Model.prototype.plural)}, LevelupAdapter);
-	app.logger.info(k + ' storage set in levelup');
-});
-
-//-----------------------------------------------------------------
-
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

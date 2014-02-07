@@ -4,18 +4,24 @@ Grown-up conversations about computers, programming, and software engineering, m
 
 Many thanks to [the NSA](http://www.zerohedge.com/news/2013-12-30/how-nsa-hacks-your-iphone-presenting-dropout-jeep) for the awesome name. My tax dollars got me something nice!
 
+## Operational requirements
+
+- persistent disk storage for the leveldb instances
+- a Redis for session storage (backed up as you see fit)
+
 ## TODO
 
-Short term:
+Right now:
 
-- trudge trudge features
+- way to get all comments by person
+- marking posts as favorite
+- embedding gists
 - asset pipeline for css / js 
 - pagination
 - caching
 
-Long-term:
+Later:
 
-- embedding gists
 - moderation implementation / admin role, display
 - tags design
 - API split-out
@@ -33,7 +39,6 @@ Sort of done:
 
 - code display: syntax highlighting etc
 - browserify
-
 
 ## License 
 
