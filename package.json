@@ -33,16 +33,18 @@
     "site": "cd site && npm run"
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "./bower_components/jquery/jquery.js": "$"
   },
   "devDependencies": {
     "browserify": "~3.24.1",
-    "gulp": "~3.5.0",
+    "gulp": "^3.5.1",
     "gulp-bower-files": "~0.1.2",
-    "gulp-browserify": "~0.3.4",
+    "gulp-browserify": "^0.4.2",
     "gulp-changed": "~0.1.0",
     "gulp-concat": "~2.1.7",
     "gulp-filter": "~0.2.1",
@@ -61,13 +63,14 @@
     "bunyan": "~0.22.1",
     "connect-flash": "~0.1.1",
     "connect-redis": "~1.4.6",
-    "downsize": "~0.0.4",
+    "downsize": "^0.0.5",
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
     "helmet": "~0.1.2",
     "jade": "~1.1.5",
     "level-sublevel": "~5.2.0",
     "leveldown": "~0.10.2",
+    "levelgraph": "^0.8.2",
     "levelup": "~0.18.2",
     "lodash": "~2.4.1",
     "marked": "~0.3.0",
@@ -87,6 +90,7 @@
     "supermarked": "git://github.com/ceejbot/supermarked.git",
     "tokenthrottle-level": "~1.0.1",
     "xtend": "~2.1.2",
-    "backbone": "~1.1.0"
+    "backbone": "~1.1.0",
+    "levelgraph": "~0.8.2"
   }
 }

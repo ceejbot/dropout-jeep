@@ -10,13 +10,11 @@ Short term:
 
 - trudge trudge features
 - asset pipeline for css / js 
-- browserify
 - pagination
 - caching
 
 Long-term:
 
-- code display: syntax highlighting etc
 - embedding gists
 - moderation implementation / admin role, display
 - tags design
@@ -27,9 +25,15 @@ Long-term:
 - payment service - which?
 - invitation code OR payment required for signup
 - two-factor auth with authy or sms or something
+- notifications of some kind
 - contract a graphic designer
 - backups (Tarsnap?)
-- notifications of some kind
+
+Sort of done:
+
+- code display: syntax highlighting etc
+- browserify
+
 
 ## License 
 
