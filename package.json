@@ -1,23 +1,52 @@
 {
   "name": "dropout-jeep",
-  "version": "0.0.2",
   "description": "a conversation site for computing",
-  "keywords": [
-    "conversation",
-    "news",
-    "links"
-  ],
+  "version": "0.0.2",
   "author": "C J Silverio <ceejceej@gmail.com>",
-  "license": "MIT",
-  "homepage": "https://github.com/ceejbot/dropout-jeep",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ceejbot/dropout-jeep.git"
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "./bower_components/jquery/jquery.js": "$"
   },
   "bugs": {
     "url": "https://github.com/ceejbot/dropout-jeep/issues"
   },
-  "main": "index.js",
+  "dependencies": {
+    "bole": "~2.0.0",
+    "connect-flash": "~0.1.1",
+    "connect-redis": "~3.0.2",
+    "downsize": "0.0.8",
+    "express": "~4.13.4",
+    "express-validator": "~2.20.2",
+    "helmet": "~1.3.0",
+    "jade": "~1.11.0",
+    "less": "~2.6.1",
+    "lodash": "~4.6.1",
+    "marked": "~0.3.5",
+    "moment": "~2.12.0",
+    "node-uuid": "~1.4.7",
+    "p-promise": "~0.5.0",
+    "passport": "~0.3.2",
+    "passport-local": "~1.0.0",
+    "polyclay": "~1.8.0",
+    "polyclay-rethink": "~0.2.0",
+    "qs": "~6.1.0",
+    "readable-stream": "~2.0.6",
+    "restify": "~4.0.4",
+    "sanitizer": "~0.1.3",
+    "scrypt-hash": "~1.1.8",
+    "supermarked": "~2.0.0",
+    "tokenthrottle-level": "~1.0.1",
+    "xtend": "~4.0.1"
+  },
+  "devDependencies": {
+    "less": "~1.6.1",
+    "mocha": "~2.4.5",
+    "must": "~0.13.1"
+  },
   "directories": {
     "build": "build",
     "cfg": "cfg",
@@ -27,70 +56,21 @@
     "site": "site",
     "test": "test"
   },
+  "homepage": "https://github.com/ceejbot/dropout-jeep",
+  "keywords": [
+    "anonymous chat",
+    "kinkmeme",
+    "ficmeme"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ceejbot/dropout-jeep.git"
+  },
   "scripts": {
-    "test": "mocha -R spec test/test*.js",
     "data": "cd data && npm run",
-    "site": "cd site && npm run"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "./bower_components/jquery/jquery.js": "$"
-  },
-  "devDependencies": {
-    "browserify": "~3.24.1",
-    "gulp": "^3.5.1",
-    "gulp-bower-files": "~0.1.2",
-    "gulp-browserify": "^0.4.2",
-    "gulp-changed": "~0.1.0",
-    "gulp-concat": "~2.1.7",
-    "gulp-filter": "~0.2.1",
-    "gulp-jscs": "~0.3.0",
-    "gulp-less": "~1.2.0",
-    "gulp-rename": "~0.2.2",
-    "gulp-util": "~2.2.13",
-    "gulp-watch": "~0.5.0",
-    "less": "~1.6.1",
-    "mocha": "~1.17.1",
-    "must": "~0.10.0",
-    "gulp-uglify": "~0.2.0",
-    "browserify-shim": "~3.2.2"
-  },
-  "dependencies": {
-    "bunyan": "~0.22.1",
-    "connect-flash": "~0.1.1",
-    "connect-redis": "~1.4.6",
-    "downsize": "^0.0.5",
-    "express": "~3.4.8",
-    "express-validator": "~1.0.1",
-    "helmet": "~0.1.2",
-    "jade": "~1.1.5",
-    "level-sublevel": "~5.2.0",
-    "leveldown": "~0.10.2",
-    "levelgraph": "^0.8.2",
-    "levelup": "~0.18.2",
-    "lodash": "~2.4.1",
-    "marked": "~0.3.0",
-    "moment": "~2.5.0",
-    "node-uuid": "~1.4.1",
-    "p-promise": "~0.2.5",
-    "passport": "~0.2.0",
-    "passport-local": "~0.1.6",
-    "polyclay": "~1.6.6",
-    "polyclay-levelup": "~0.1.0",
-    "primus": "~1.5.2",
-    "qs": "~0.6.6",
-    "readable-stream": "~1.1.9",
-    "restify": "~2.6.1",
-    "sanitizer": "~0.1.1",
-    "scrypt-hash": "~1.1.8",
-    "supermarked": "git://github.com/ceejbot/supermarked.git",
-    "tokenthrottle-level": "~1.0.1",
-    "xtend": "~2.1.2",
-    "backbone": "~1.1.0",
-    "levelgraph": "~0.8.2"
+    "site": "cd site && npm run",
+    "test": "mocha -R spec test/test*.js"
   }
 }

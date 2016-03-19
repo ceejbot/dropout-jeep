@@ -16,3 +16,4 @@ node_modules
 bower_components
 cfg/development.json
 db
+.nyc_output
