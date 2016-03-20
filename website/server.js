@@ -38,13 +38,15 @@ app.set('view engine', 'jade');
 app.use(require('morgan')('dev', { stream: logstream }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(validator());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	ttl:    process.env.SESSION_TTL,
 	store:  new RedisStore({ url: process.env.REDIS_URL }),
+	resave: false,
+	saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -101,22 +103,23 @@ passport.deserializeUser(function(id, callback)
 //-----------------------------------------------------------------
 
 app.route('/').get(routes.main.index);
-app.get(/\/day\/(.*)/, routes.day.listing);
 app.get('/about', routes.main.about);
 
-app.get('/signup', routes.registration.signup);
-app.post('/signup', routes.registration.signupPost);
-app.get('/signin', routes.auth.login);
-app.post('/signin',
-	passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }),
-	routes.auth.loginPost);
+app.route('/signup')
+	.get(routes.registration.signup)
+	.post(routes.registration.signupPost);
+app.route('/signin').get(routes.auth.login)
+	.post(passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }),
+		routes.auth.loginPost);
 app.get('/signout', routes.auth.logout);
 
 app.get('/post/:id', routes.posts.post);
-app.get('/post', loginRequired, routes.posts.postCreate);
-app.post('/post', loginRequired, routes.posts.postPost); // I love this line of code.
-app.get('/post/:id/edit', loginRequired, routes.posts.postEdit);
-app.post('/post/:id/edit', loginRequired, routes.posts.postEditPost); // and this one
+app.route('/post')
+	.get(loginRequired, routes.posts.postCreate)
+	.post(loginRequired, routes.posts.postPost); // I love this line of code.
+app.route('/post/:id/edit')
+	.get(loginRequired, routes.posts.postEdit)
+	.post(loginRequired, routes.posts.postEditPost); // and this one
 
 app.post('/post/:pid/comment', loginRequired, routes.comments.commentPost);
 
@@ -124,8 +127,9 @@ app.get('/faves', routes.main.faves);
 // app.put('/fave/:id', loginRequired, routes.favorites.put);
 app.get('/queue', routes.main.queue);
 
-app.get('/profile/edit', loginRequired, routes.people.editProfile);
-app.post('/profile/edit', loginRequired, routes.people.postEditProfile);
+app.route('/profile/edit')
+	.get(loginRequired, routes.people.editProfile)
+	.post(loginRequired, routes.people.postEditProfile);
 app.get('/profile/@:id', routes.people.profile);
 
 app.get('/tags', routes.tags.all);
