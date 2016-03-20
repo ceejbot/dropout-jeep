@@ -1,0 +1,10 @@
+WEB_PORT=3000
+SESSION_TTL=31536000000
+SESSION_SECRET=keyboard-cat
+COOKIE_SECRET=plays-them-off
+NODE_ENV=development
+LOGLEVEL=debug
+REDIS_URL=redis://localhost:6379
+RETHINK_HOST=localhost
+RETHINK_PORT=28015
+RETHINK_DB=dropoutjeep-dev

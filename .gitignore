@@ -17,3 +17,4 @@ bower_components
 config/development.json
 db
 .nyc_output
+.env

@@ -1,60 +1,55 @@
 var
-	_             = require('lodash'),
-	Controller    = require('../lib/controller'),
-	express       = require('express'),
-	flash         = require('connect-flash'),
-	helmet        = require('helmet'), // TODO put to work
-	http          = require('http'),
-	models        = require('../lib/models'),
+	_            = require('lodash'),
+	bodyParser   = require('body-parser'),
+	bole         = require('bole'),
+	Controller   = require('../lib/controller'),
+	cookieParser = require('cookie-parser'),
+	csurf        = require('csurf'),
+	express      = require('express'),
+	favicon      = require('serve-favicon'),
+	flash        = require('connect-flash'),
+	helmet       = require('helmet'), // TODO put to work
+	http         = require('http'),
+	models       = require('../lib/models'),
 	LocalStrategy = require('passport-local').Strategy,
-	passport      = require('passport'),
-	path          = require('path'),
-	RedisStore    = require('connect-redis')(express),
-	validator     = require('express-validator')
+	passport     = require('passport'),
+	path         = require('path'),
+	session      = require('express-session')
+	RedisStore   = require('connect-redis')(session),
+	routes       = require('./routes'),
+	validator    = require('express-validator')
 	;
 
-var
-	config = require('../cfg'),
-	routes = require('./routes')
-	;
+require('dotenv').config();
 
 var app = express();
-var controller = new Controller(config);
+var controller = new Controller();
 app.set('controller', controller);
 
-//-----------------------------------------------------------------
-// Logging
-
-app.logger  = controller.logger;
-var logstream =
-{
-	write: function(message, encoding) { app.logger.info(message.substring(0, message.length - 1)); }
-};
+app.logger  = bole('www');
+var logstream = { write: function(message, encoding) { app.logger.info(message.substring(0, message.length - 1)); } };
 
 //-----------------------------------------------------------------
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.WEB_PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger({stream: logstream, format: 'dev'}));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(require('morgan')('dev', { stream: logstream }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(validator());
-app.use(express.methodOverride());
-app.use(express.cookieParser(config.cookie_secret));
-app.use(express.session(
-{
-	secret: config.session_secret,
-	ttl: config.SESSION_TTL,
-	store: new RedisStore(),
-	cookie: { maxAge: config.SESSION_TTL }
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	ttl:    process.env.SESSION_TTL,
+	store:  new RedisStore({ url: process.env.REDIS_URL }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(express.csrf());
+app.use(csurf());
 
 app.use(function(request, response, next)
 {
@@ -69,11 +64,9 @@ app.use(function(request, response, next)
 	next();
 });
 
-app.use(app.router);
-
 if ('development' == app.get('env'))
 {
-	app.use(express.errorHandler());
+	app.use(require('errorhandler')());
 	app.locals.pretty = true;
 }
 
@@ -107,7 +100,7 @@ passport.deserializeUser(function(id, callback)
 
 //-----------------------------------------------------------------
 
-app.get('/', routes.main.index);
+app.route('/').get(routes.main.index);
 app.get(/\/day\/(.*)/, routes.day.listing);
 app.get('/about', routes.main.about);
 
@@ -137,6 +130,11 @@ app.get('/profile/@:id', routes.people.profile);
 
 app.get('/tags', routes.tags.all);
 app.get('/tags/:tag', routes.tags.tag);
+
+app.route('/_monitor/ping').get(function(request, response)
+{
+	response.status(200).send('OK');
+});
 
 //-----------------------------------------------------------------
 
