@@ -1,6 +1,6 @@
 # dropout-jeep
 
-Dropout-jeep is kink memes as a service. The goals are to do it on the cheap (aka efficiently) and then charge enough money to make it self-sustaining.
+Dropout-jeep is kink memes as a service. The goal is to do it on the cheap (aka efficiently) and then charge enough money to make it self-sustaining.
 
 ## why the name
 
