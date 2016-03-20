@@ -7,14 +7,11 @@ LOGGER := $(addprefix $(NPM_BIN), bunyan) -o short
 BROWSERIFY := $(addprefix $(NPM_BIN), browserify)
 SUPERVISOR := $(addprefix $(NPM_BIN), supervisor)
 
-# bootstrap
-BOOTPATH = bower_components/bootstrap
-
 INPUT_DIR = build
-OUTPUT_DIR = site/public
+OUTPUT_DIR = website/public
 
 # CSS setup
-LESSOPTS := --include-path=bower_components/bootstrap/less
+LESSOPTS := -
 LESSDIR := $(INPUT_DIR)/less
 CSSDIR := $(OUTPUT_DIR)/css
 
@@ -51,8 +48,5 @@ $(JSDIR)/%.js : $(JSSRCDIR)/%.js
 	@echo Minifying $<
 	@$(UGLIFY) --no-mangle -nc $< > $@
 
-libs: bootstrap
+libs:
 	browserify -r supermarked -r moment -r backbone -o $(JSDIR)/bundle.js
-
-bootstrap: $(BOOTPATH)/dist/js/bootstrap.js
-	@cp $(BOOTPATH)/dist/js/* $(OUTPUT_DIR)/js
