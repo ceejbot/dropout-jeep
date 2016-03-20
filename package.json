@@ -1,16 +1,8 @@
 {
   "name": "dropout-jeep",
-  "description": "a conversation site for computing",
-  "version": "0.0.2",
+  "description": "kink memes as a service",
+  "version": "0.0.0",
   "author": "C J Silverio <ceejceej@gmail.com>",
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "./bower_components/jquery/jquery.js": "$"
-  },
   "bugs": {
     "url": "https://github.com/ceejbot/dropout-jeep/issues"
   },
